@@ -11,11 +11,10 @@ def error_message_detail(error,error_details: sys):
 
 class CustomException(Exception):
     def __init__(self,error_message,error_details:sys):
-        super.__init__(error_message) # inheriting init
+        super().__init__(error_message) # inheriting init
         self.error_message = error_message_detail(error=error_message,error_details=error_details)
         
     def __str__(self) -> str:
         return self.error_message
-    
     
     
