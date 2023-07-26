@@ -21,4 +21,4 @@ logging.basicConfig(
 )
 
 
-logger = logging.getLogger("EndToEndMLProject")
+logger = logging.getLogger("StudentsPerformanceAnalysis")

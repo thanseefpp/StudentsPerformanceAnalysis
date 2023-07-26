@@ -37,9 +37,9 @@ if __name__ == "__main__":
     requirements = findRequirements()
 
     setup(
-        name='EndToEndMLProject',
+        name='StudentsPerformanceAnalysis',
         version=getVersion(),
-        description='Machine Learning End-to-End Project',
+        description='Students Performance Analysis Project, Resources Collected From Kaggle',
         author='Thanseefpp',
         author_email='thanseefpp@gmail.com',
         packages=find_packages(),
