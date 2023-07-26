@@ -16,6 +16,9 @@ boot_out.txt
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 
+#artifacts folder
+artifacts/
+
 # IPython
 profile_default/
 ipython_config.py
