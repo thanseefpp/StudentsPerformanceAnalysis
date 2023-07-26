@@ -1,34 +1,18 @@
-# import os
-# import sys
-# from src.exception import CustomException
-# from src.logger import logger
-# from src.utils import save_object
-
-# import pandas as pd
-# import numpy as np
-
-# from sklearn.impute import SimpleImputer
-# from sklearn.compose import ColumnTransformer
-# from sklearn.pipeline import Pipeline
-# from sklearn.preprocessing import OneHotEncoder,StandardScaler
-
-# from dataclasses import dataclass
-
+#----------------------------------------- IMPORTING DEPENDENCIES -------------------------------------#
+import os
 import sys
-from dataclasses import dataclass
-
 import numpy as np 
 import pandas as pd
+from src.logger import logger
+from src.utils import save_object
+from dataclasses import dataclass
+from src.exception import CustomException
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder,StandardScaler
 
-from src.exception import CustomException
-from src.logger import logger
-import os
-
-from src.utils import save_object
+#----------------------------------------- FUNCTIONS/CLASSES -------------------------------------#
 
 
 @dataclass
@@ -37,7 +21,26 @@ class DataTransformationConfig:
     
 
 class DataTransformation:
-    
+    """
+        1 - Calling the data transformer dataclass
+        2 - Reading the datasets
+        3 -
+            1 - creating pipeline (
+                - imputer for completing missing values with simple strategies \
+                    (Replace missing values using a descriptive statistic)
+                - The input to this transformer should be an array-like of integers or strings, \
+                    denoting the values taken on by categorical (discrete) features. \
+                    The features are encoded using a one-hot (aka 'one-of-K' or 'dummy') encoding scheme
+            ) 
+           2 - it helps you to perform various data preprocessing tasks (like scaling, \
+                encoding categorical variables, etc.) on different columns of your data, \
+                all within a single ColumnTransformer object
+        4 - Dropping Target columns
+        5 - preprocessing the data's
+        6 - concatenation the preprocessed data and normal target data
+        7 - saving the preprocessor as pickle file
+        8 - 
+    """
     def __init__(self):
         self.data_transformation_config = DataTransformationConfig()
         
@@ -102,7 +105,6 @@ class DataTransformation:
                 input_feature_train_arr, np.array(target_feature_train_df)
             ]
             test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
-            
             logger.info("train and test concatenation done")
             
             # saving the preprocessor as .pkl file

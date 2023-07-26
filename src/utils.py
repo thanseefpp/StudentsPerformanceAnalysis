@@ -16,5 +16,6 @@ def save_object(file_path, obj):
         os.makedirs(dir_path, exist_ok=True)
         with open(file_path, "wb") as file_obj:
             pickle.dump(obj, file_obj)
+        logger.info("Object Saved..")
     except Exception as e:
         raise CustomException(e, sys) from e
