@@ -9,17 +9,26 @@ from sklearn.model_selection import train_test_split
 
 @dataclass
 class DataIngestionConfig:
+    """
+        Data ingestion Config class which return three file paths.
+    """
     train_data_path: str = os.path.join('artifacts', "train.csv")
     test_data_path: str = os.path.join('artifacts', "test.csv")
     raw_data_path: str = os.path.join('artifacts', "data.csv")
 
 
 class DataIngestion:
+    """
+        1 - Here this class is taking the config path
+        2 - taking the dataset from a specific folder
+        3 - checking the artifects folder exist or not and splitting the data into train and test
+        4 - returning the train and test set file path
+    """
     def __init__(self):
         self.ingestion_config = DataIngestionConfig()
 
     def get_data(self) -> pd.DataFrame:
-        return pd.read_csv("notebooks/dataset/StudentsPerformance.csv")
+        return pd.read_csv("notebooks/dataset/students.csv")
 
     def initiate_data_ingestion(self):
         logger.info("Entered Data ingestion method or Component..")
@@ -46,8 +55,3 @@ class DataIngestion:
             )
         except Exception as e:
             raise CustomException(e, sys) from e
-
-
-if __name__ == "__main__":
-    obj = DataIngestion()
-    obj.initiate_data_ingestion()
