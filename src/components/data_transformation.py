@@ -12,7 +12,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder,StandardScaler
 
-#----------------------------------------- FUNCTIONS/CLASSES -------------------------------------#
+#----------------------------------------- FUNCTIONS/CLASSES ----------------------------------------#
 
 
 @dataclass
@@ -39,7 +39,6 @@ class DataTransformation:
         5 - preprocessing the data's
         6 - concatenation the preprocessed data and normal target data
         7 - saving the preprocessor as pickle file
-        8 - 
     """
     def __init__(self):
         self.data_transformation_config = DataTransformationConfig()
@@ -98,7 +97,7 @@ class DataTransformation:
             
             # transforming the train and test to array
             input_feature_train_arr=pre_processing_obj.fit_transform(input_feature_train_df)
-            input_feature_test_arr=pre_processing_obj.fit_transform(input_feature_test_df)
+            input_feature_test_arr=pre_processing_obj.transform(input_feature_test_df)
             
             # concatenation along the second axis
             train_arr = np.c_[

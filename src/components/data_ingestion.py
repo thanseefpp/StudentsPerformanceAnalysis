@@ -1,3 +1,4 @@
+#----------------------------------------- IMPORTING DEPENDENCIES -------------------------------------#
 import os
 import sys
 from src.logger import logger
@@ -6,6 +7,7 @@ import pandas as pd
 from src.exception import CustomException
 from sklearn.model_selection import train_test_split
 
+#----------------------------------------- FUNCTIONS/CLASSES -------------------------------------#
 
 @dataclass
 class DataIngestionConfig:

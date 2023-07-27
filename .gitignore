@@ -18,6 +18,7 @@ boot_out.txt
 
 #artifacts folder
 artifacts/
+catboost_info/
 
 # IPython
 profile_default/
