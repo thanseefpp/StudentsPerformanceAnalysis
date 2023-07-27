@@ -13,3 +13,10 @@ pip install -r requirements.txt
 ```
 python3 app.py
 ```
+
+## 3 - For Running the Pipeline
+
+- Run the App file
+```
+python3 run_pipeline.py
+```
