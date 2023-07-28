@@ -1,27 +1,19 @@
-<html>
-<body>
-    <div class="login">
-       <h1>Student Exam Performance Indicator</h1>
-   
-       <form action="{{ url_for('predict_data_point')}}" method="post">
-        <h1>
-            <legend>Student Exam Performance Prediction</legend>
-        </h1>
-        <div class="mb-3">
-            <label class="form-label">Gender</label>
-            <select class="form-control" name="gender" placeholder="Enter you Gender" required>
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Student Exam Performance Prediction - Thanseef</h1>
+    <div class="form-box">
+        <div class="form-group">
+            <label for="gender">Gender :</label>
+            <select id="gender" name="gender">
                 <option class="placeholder" selected disabled value="">Select your Gender</option>
-                <option value="male">
-                    Male
-                </option>
-                <option value="female">
-                    Female
-                </option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
             </select>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Race or Ethnicity</label>
-            <select class="form-control" name="ethnicity" placeholder="Enter you ethnicity" required>
+
+        <div class="form-group">
+            <label for="ethnicity">Race or Ethnicity :</label>
+            <select id="ethnicity" name="ethnicity">
                 <option class="placeholder" selected disabled value="">Select Ethnicity</option>
                 <option value="group A">
                     Group A
@@ -40,10 +32,10 @@
                 </option>
             </select>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Parental Level of Education</label>
-            <select class="form-control" name="parental_level_of_education"
-                placeholder="Enter you Parent Education" required>
+
+        <div class="form-group">
+            <label for="parental_level_of_education">Parental Level of Education :</label>
+            <select id="parental_level_of_education" name="parental_level_of_education">
                 <option class="placeholder" selected disabled value="">Select Parent Education</option>
                 <option value="associate's degree">
                     associate's degree
@@ -65,9 +57,10 @@
                 </option>
             </select>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Lunch Type</label>
-            <select class="form-control" name="lunch" placeholder="Enter you Lunch" required>
+
+        <div class="form-group">
+            <label for="lunch">Lunch Type :</label>
+            <select id="lunch" name="lunch">
                 <option class="placeholder" selected disabled value="">Select Lunch Type</option>
                 <option value="free/reduced">
                     free/reduced
@@ -77,10 +70,9 @@
                 </option>
             </select>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Test preparation Course</label>
-            <select class="form-control" name="test_preparation_course" placeholder="Enter you Course"
-                required>
+        <div class="form-group">
+            <label for="test_preparation_course">Test preparation Course :</label>
+            <select id="test_preparation_course" name="test_preparation_course">
                 <option class="placeholder" selected disabled value="">Select Test_course</option>
                 <option value="none">
                     None
@@ -90,22 +82,74 @@
                 </option>
             </select>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Writing Score out of 100</label>
-            <input class="form-control" type="number" name="reading_score"
-                placeholder="Enter your Reading score" min='0' max='100' />
+
+        <div class="form-group">
+            <label for="writing_score">Writing Score out of 100 :</label>
+            <input style="padding: 4%;" type="number" class="form-control" id="writing_score" name="writing_score" placeholder="Enter your score">
+        </div>   
+
+        <div class="form-group">
+            <label for="reading_score">Reading Score out of 100 :</label>
+            <input style="padding: 4%;" type="number" class="form-control" id="reading_score" name="reading_score" placeholder="Enter your score">
+        </div> 
+
+        <div>
+            <button class="button" onclick="PredictResult()">Predict Result</button>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Reading Score out of 100</label>
-            <input class="form-control" type="number" name="writing_score"
-                placeholder="Enter your Reading Score" min='0' max='100' />
-        </div>
-        <div class="mb-3">
-            <input class="btn btn-primary" type="submit" value="Predict your Maths Score" required />
-        </div>
-    </form>
-    <h2>
-       THE Predicted Result is : {{results}}
-    </h2>
-   <body>
-</html>
+
+        <h2 id="Output"></h2>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+    function PredictResult() {
+        const gender = document.getElementById("gender").value;
+        const ethnicity = document.getElementById("ethnicity").value;
+        const parental_level_of_education = document.getElementById("parental_level_of_education").value;
+        const test_preparation_course = document.getElementById("test_preparation_course").value;
+        const writing_score = document.getElementById("writing_score").value;
+        const reading_score = document.getElementById("reading_score").value;
+        const lunch = document.getElementById("lunch").value;
+        const output = document.getElementById('Output');
+        document.getElementById("gender").value = "";
+        document.getElementById("ethnicity").value = "";
+        document.getElementById("parental_level_of_education").value = "";
+        document.getElementById("test_preparation_course").value = "";
+        document.getElementById("writing_score").value = "";
+        document.getElementById("reading_score").value = "";
+        document.getElementById("lunch").value = "";
+        const waitingPopup = Swal.fire({
+            title: "Loading...!",
+            width: '20%',
+            html: "Waiting for response from ML Model!<br>",
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+        });
+
+        fetch("/predict_data", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+            gender : gender,
+            ethnicity: ethnicity,
+            parental_level_of_education : parental_level_of_education,
+            test_preparation_course  :test_preparation_course,
+            writing_score : writing_score,
+            reading_score : reading_score,
+            lunch : lunch
+        }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            waitingPopup.close();
+            output.textContent = "Predicted Result " + data;
+        });
+    }
+</script>
+{% endblock %}

@@ -17,7 +17,7 @@ boot_out.txt
 */.ipynb_checkpoints/*
 
 #artifacts folder
-artifacts/
+# artifacts/
 catboost_info/
 
 # IPython
