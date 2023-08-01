@@ -26,4 +26,4 @@ python3 run_pipeline.py
 <h3 align="center">Application Demo</h3>
 
 
-![ezgif com-video-to-gif](https://github.com/thanseefpp/Gemstone-Price-Prediction/assets/62167887/f0f7731b-aace-4aa1-9087-f27f7ffc24a7)
+![ezgif com-video-to-gif](https://github.com/thanseefpp/StudentsPerformanceAnalysis/assets/62167887/f38d06c0-5011-4dc9-bf4b-fd96b1cb9d9b)
